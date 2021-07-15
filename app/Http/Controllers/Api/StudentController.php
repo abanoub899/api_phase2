@@ -38,6 +38,30 @@ return response()->json([
     }
     public function login(Request $request)
     {
+        //validation
+$request->validate([
+    "email"=>"required|email|unique:students",
+    "password"=>"required|confirmed"
+]);
+        // check student
+$student=Student::where("email","=",$request->email)->first();
+if(isset($student->id)){
+// create santcum token
+if(Hash::check($request->password, $student->password))
+{
+    // $token=$student->createToken("auth_token")->PlainTextToken;
+    return response()->json(["status"=>1,"message"=>"sudent logged in successfuly"]);
+
+}else{
+    return response()->json(["status"=>0,"message"=>"password didnt match"],404); 
+}
+//send response
+
+}else{
+    return response()->json(["status"=>0,"message"=>"failed to find student"],404);
+
+}
+        
 
     }
     public function profile()

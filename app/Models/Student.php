@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Santcum\HasApiTokens;
 class Student extends Model
 {
-    use HasFactory,App\Models\HasApiTokens;
+    use HasFactory;
     protected $table="students";
     protected $fillabel=['name','email','password','phone'];
 
